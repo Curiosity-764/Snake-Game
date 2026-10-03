@@ -38,6 +38,29 @@ function draw() {
     grid[part.y][part.x].className = "snake"; // if its the snake cell then re-draw as the sanke colorr 
   }
 }
+function move() {   // computing the next head for the snake to move  
+    var head = snake[0];
+
+    var nextHead = {
+      x: head.x + direction.x,
+      y: head.y + direction.y
+    };
+
+    snake.unshift(nextHead);
+    snake.pop();
+  }
+
+  document.addEventListener("keydown", function(event) {
+    var key = event.key;
+
+    if (key === "ArrowUp")    direction = { x: 0, y: -1 };
+    if (key === "ArrowDown")  direction = { x: 0, y: 1 };
+    if (key === "ArrowLeft")  direction = { x: -1, y: 0 };
+    if (key === "ArrowRight") direction = { x: 1, y: 0 };
+
+    move();
+    draw();
+  });
 
 makeBoard();
 draw();

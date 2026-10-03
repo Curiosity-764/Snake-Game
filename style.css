@@ -1,0 +1,11 @@
+#board {
+  display: grid;
+  grid-template-columns: repeat(20, 24px);
+  grid-template-rows: repeat(20, 24px);
+  gap: 1px;
+  background: #111;
+  width: fit-content;
+}
+
+.cell  { background: #222; }
+.snake { background: lime; }

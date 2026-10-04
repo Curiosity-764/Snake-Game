@@ -4,6 +4,7 @@ var cols = 20;
 var board = document.getElementById("board");
 var grid = [];
 var direction = null;
+var next_direction = null;
 var tick = null;
 var game_end = false;
 
@@ -42,6 +43,8 @@ function draw() {
   }
 }
 function move() {   // computing the next head for the snake to move  
+   if (next_direction === null) return;
+   direction = next_direction;
     var head = snake[0];
 
     var nextHead = {
@@ -82,14 +85,23 @@ if (game_end === true) return;
   }
 
   document.addEventListener("keydown", function(event) {
+     if (game_end === true) return;
     var key = event.key;
-    if (game_end === true) return;
-    if (key === "ArrowUp")    direction = { x: 0, y: -1 };
-    if (key === "ArrowDown")  direction = { x: 0, y: 1 };
-    if (key === "ArrowLeft")  direction = { x: -1, y: 0 };
-    if (key === "ArrowRight") direction = { x: 1, y: 0 };
-
+    var new_direction = null;
     
+    if (key === "ArrowUp")    new_direction = { x: 0, y: -1 };
+    if (key === "ArrowDown")  new_direction = { x: 0, y: 1 };
+    if (key === "ArrowLeft")  new_direction = { x: -1, y: 0 }; 
+    if (key === "ArrowRight") new_direction = { x: 1, y: 0 };
+    
+
+if (new_direction === null) return;
+
+if (direction!=null) {
+    if (new_direction.x === -direction.x && new_direction.y === -direction.y) return ;
+
+}
+    next_direction = new_direction;
   });
 
 start();

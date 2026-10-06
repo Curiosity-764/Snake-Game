@@ -1,3 +1,114 @@
+body {
+  background: #0d0d0d;
+  color: #eee;
+  font-family: Arial, Helvetica, sans-serif;
+  min-height: 100vh;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: url(Snake\ Xenzia.jpg);
+  background-size: cover;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* ── menu ── */
+
+#menu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+#menu h1 {
+  font-size: 56px;
+  letter-spacing: 4px;
+  color: lime;
+  margin: 0;
+}
+
+#menu p {
+  color: #888;
+  margin: 0;
+}
+
+#menu .buttons {
+  display: flex;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.level-btn {
+  padding: 14px 24px;
+  font-size: 16px;
+  background: #222;
+  color: #eee;
+  border: 1px solid #444;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.level-btn:hover {
+  background: #2a2a2a;
+  border-color: lime;
+  color: lime;
+}
+
+/* ── game ── */
+
+#game {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+#hud {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+  padding: 8px 16px;
+  background: #1a1a1a;
+  border-radius: 6px;
+  font-size: 14px;
+  user-select: none;
+ 
+}
+
+#hud span {
+  color: #ccc;
+  user-select: none;
+
+}
+
+#hud span span {
+  color: lime;
+  font-weight: bold;
+  user-select: none;
+
+}
+
+#menu-btn {
+  padding: 6px 12px;
+  background: #222;
+  color: #eee;
+  border: 1px solid #444;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+#menu-btn:hover {
+  border-color: lime;
+  color: lime;
+}
+
+/* ── board ── */
+
 #board {
   display: grid;
   grid-template-columns: repeat(20, 24px);
@@ -5,8 +116,63 @@
   gap: 1px;
   background: #111;
   width: fit-content;
+  border: 2px solid #333;
+  border-radius: 4px;
+  user-select: none;
 }
 
-.cell  { background: #222; }
-.snake { background: lime; }
- .food  { background: red; }
+
+#board-wrap {
+  position: relative;
+}
+
+#gameover {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  border-radius: 4px;
+  user-select: none;
+}
+
+#gameover h2 {
+  color: lime;
+  font-size: 32px;
+  margin: 0;
+}
+
+#gameover p {
+  color: #ccc;
+  margin: 0;
+}
+
+#gameover p span {
+  color: lime;
+  font-weight: bold;
+}
+
+#gameover button {
+  padding: 10px 18px;
+  font-size: 14px;
+  background: #222;
+  color: #eee;
+  border: 1px solid #444;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#gameover button:hover {
+  border-color: lime;
+  color: lime;
+}
+
+
+.cell     { background: #222; }
+.snake    { background: lime; }
+.food     { background: red; }
+.poison   { background: purple; }
+.obstacle { background: gray; }

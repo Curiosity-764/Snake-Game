@@ -4,7 +4,37 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div id="board"></div>
+
+  <div id="menu">
+    <h1>Snake Xenzia</h1>  
+    <p>Choose a level</p>
+    <div class="buttons">
+      <button class="level-btn" data-level="1">Level 1</button>
+      <button class="level-btn" data-level="2">Level 2</button>
+      <button class="level-btn" data-level="3">Level 3</button> 
+      <button class="level-btn" data-level="4">Level 4</button>
+    </div>
+  </div>
+
+  <div id="game" class="hidden">
+    <div id="hud">
+      <span>Level: <span id="hud-level">1</span></span>
+      <span>Score: <span id="hud-score">0</span></span>
+      
+    </div>
+
+    <div id="board-wrap">
+      <div id="board"></div>
+
+      <div id="gameover" class="hidden">
+        <h2>Game Over</h2>
+        <p>Score: <span id="final-score">0</span></p>
+        <button id="retry-btn">Retry</button>
+        <button id="to-menu-btn">Menu</button>
+      </div>
+    </div>
+  </div>
+
   <script src="game.js"></script>
 </body>
 </html>

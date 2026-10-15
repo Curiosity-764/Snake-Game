@@ -1,4 +1,4 @@
-
+// Em  khá là thích tiếng anh nên code em làm và github em cx để tiếng anh ạ. em cx đang học tiếng anh nên thầy thông cảm giúp em. Cảm ơn thầy!
 var cols = 20;  // x 
 var rows = 20; // y 
 
@@ -25,7 +25,7 @@ var snake = [
   { x: 5, y: 10 },
   { x: 4, y: 10 },
   { x: 3, y: 10 }
-];
+];      
 
 var food = null;
 
@@ -40,6 +40,39 @@ var poisonStatus = "waiting";
 var poisonTimer = 0;
 
 
+  //  draw map layout
+  function blockOfCells(x, y, w, h) { // x : start at x , y : ends at y, w : width of the rectangle , h : height of the rectangle
+    var cells = [];   // example blockOfCells(2, 3, 3, 2)
+    for (var row = 0; row < h; row++) {    // outer loop :  height since row < h   then row < 2 meaning 2 loops in the outer layer
+      for (var col = 0; col < w; col++) {    // inner loop : width sincw col < w    then col < 3 meaning 3 loops in the inner layer
+        cells.push({ x: x + col, y: y + row });   // pushes the cells in . final result : * * *         col = inner layer = 3
+                                                  //                                      * * *          row = 2 as outerlayer =2
+      }  // one note to mention : x : x+col means that if col++ its gonna walk through the width and increase the x by 1 each time the loop comes through. same with y
+      // x was never modified since we wrote it as x : x+col not x = x+col
+    }
+    return cells;
+}
+
+var LEVEL_2 = []
+  .concat(blockOfCells(0, 0, 5, 1))
+  .concat(blockOfCells(15, 0, 5, 1))
+  .concat(blockOfCells(19, 0, 1, 5))
+  .concat(blockOfCells(0, 0, 1, 5))
+  .concat(blockOfCells(0, 19, 5, 1))
+  .concat(blockOfCells(0, 15, 1, 5))
+  .concat(blockOfCells(15, 19, 5, 1))
+  .concat(blockOfCells(5, 5, 10, 3))
+  .concat(blockOfCells(19, 15, 1, 5))
+  .concat(blockOfCells(5, 12, 10, 3));
+
+var LEVEL_3 = []
+  .concat(blockOfCells(3, 0, 3, 8))
+  .concat(blockOfCells(12, 6, 8, 3))
+  .concat(blockOfCells(0, 14, 8, 3))
+  .concat(blockOfCells(14, 14, 3, 6));
+
+var LEVEL_4 = []
+  .concat(blockOfCells(8, 0, 4, 20));
 
 
 
@@ -203,7 +236,7 @@ function move() {
   };
 
 
-  if (warpEdges === false) {
+  if (warpEdges === false) {    
     if (nextHead.x < 0)     { 
       gameOver(); return; 
 
@@ -263,6 +296,8 @@ function move() {
       poisonStatus = "waiting";
       poisonTimer = 0;
       snake.pop();
+      snake.pop();
+
       if (snake.length < 2) {
         gameOver();
         return;
@@ -304,18 +339,19 @@ function loadLevel(n) {
 // but have a mechanic that u can warp to the other side
 
   if (n >= 2) {
-    currentObstacles = LEVEL_2_OBSTACLES;
+    currentObstacles = LEVEL_2;
   }
 
  
   if (n >= 3) {
     poisonConfig = { waitTicks: 60, stayTicks: 53 };
+    currentObstacles = LEVEL_3;
   }
 
 
   if (n >= 4) {
     warpEdges = true;
-    currentObstacles = LEVEL_4_OBSTACLES;
+    currentObstacles = LEVEL_4;
   }
 
   if (tick !== null) {
@@ -379,6 +415,8 @@ document.addEventListener("keydown", function(event) {
 
   if (direction !== null) {
     if (new_direction.x === -direction.x && new_direction.y === -direction.y) return; // fixed the backwards traversal
+
+    // bug : sometimes eat the other key and its not registered
   }
 
   next_direction = new_direction;

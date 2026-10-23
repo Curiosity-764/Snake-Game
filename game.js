@@ -249,8 +249,20 @@ function draw() {
 
     for (var i = 0; i < snake.length; i++) {
         var part = snake[i];
-        grid[part.y][part.x].className = "snake";
-    }
+        
+        if (i === 0) {
+          var headClass = "snake-head";
+          
+          if (direction.x === 1)  headClass += " right";
+          if (direction.x === -1) headClass += " left";
+          if (direction.y === -1) headClass += " up";
+          if (direction.y === 1)  headClass += " down";
+          
+          grid[part.y][part.x].className = headClass;
+        } else {
+          grid[part.y][part.x].className = "snake";
+        }
+      }
 }
 
 function hitsSnake(position) { // check if the snake eat itself
@@ -566,7 +578,9 @@ document.getElementById("retry-btn").addEventListener("click", function() {
 document.getElementById("to-menu-btn").addEventListener("click", function() {
     showMenu();
 });
-
+document.getElementById("menu-btn").addEventListener("click", function() {
+    showMenu();
+});
 document.addEventListener("keydown", function(event) {
     if (game_end === true) return;
     if (gameScreen.classList.contains("hidden")) return;

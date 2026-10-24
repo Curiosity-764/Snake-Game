@@ -204,6 +204,11 @@ body {
 
 }
 
+
+.fog {
+  background: #000 !important;
+}
+
 .snake-head { 
   background-image: url('snake-head.png');
   background-size: 100% 100%;
@@ -217,6 +222,9 @@ body {
 .snake-head.down  { transform: rotate(90deg); }
 .snake-head.left  { transform: rotate(180deg); }
 .snake-head.up    { transform: rotate(-90deg); }
+
+
+
   </style>
 <head>
  
@@ -224,14 +232,14 @@ body {
 <body>
 
   <div id="menu">
-    <h1>Snake Xenzia</h1>  
-    <p>Choose a level</p>
+    <p style="color: white;font-size: 20px;font-weight: bold;">Choose a level</p>
     <div class="buttons">
       <button class="level-btn" data-level="1">Level 1</button>
       <button class="level-btn" data-level="2">Level 2</button>
       <button class="level-btn" data-level="3">Level 3</button> 
       <button class="level-btn" data-level="4">Level 4</button>
       <button class="level-btn" data-level="5">Level 5</button>
+      <button class="level-btn" data-level="6">Level 6</button>
 
     </div>
   </div>

@@ -88,18 +88,51 @@ var LEVEL_5 = [
 
 
 var LEVEL_6 = [
-    
-    ...blockOfCells(2, 2, 16, 1),
-    ...blockOfCells(2, 17, 16, 1),
-    ...blockOfCells(2, 3, 1, 14),
-    ...blockOfCells(17, 3, 1, 14),
-    
-   
-    ...blockOfCells(6, 6, 2, 2),
-    ...blockOfCells(12, 6, 2, 2),
-    ...blockOfCells(6, 12, 2, 2),
-    ...blockOfCells(12, 12, 2, 2)
-  ];
+
+    ...blockOfCells(2, 2, 5, 1),
+    ...blockOfCells(9, 2, 1, 2),  
+    ...blockOfCells(13, 2, 5, 1),
+    ...blockOfCells(21, 2, 5, 1),
+    ...blockOfCells(28, 2, 5, 1),
+    ...blockOfCells(40, 2, 5, 1),
+
+ 
+    ...blockOfCells(38, 3, 1, 2), 
+    ...blockOfCells(10, 6, 4, 1),
+    ...blockOfCells(18, 6, 1, 3),
+    ...blockOfCells(23, 6, 1, 3),
+    ...blockOfCells(28, 6, 1, 3),
+    ...blockOfCells(36, 6, 1, 3),
+
+    ...blockOfCells(17, 10, 7, 1), 
+    ...blockOfCells(26, 10, 7, 1),
+    ...blockOfCells(17, 11, 1, 3), 
+    ...blockOfCells(33, 11, 1, 3), 
+    ...blockOfCells(17, 15, 1, 4), 
+    ...blockOfCells(33, 15, 1, 4),
+    ...blockOfCells(17, 18, 7, 1), 
+    ...blockOfCells(26, 18, 7, 1),
+
+    ...blockOfCells(2, 13, 5, 1),
+    ...blockOfCells(8, 12, 1, 3),
+    ...blockOfCells(12, 13, 1, 2),
+    ...blockOfCells(38, 13, 5, 1),
+    ...blockOfCells(36, 12, 1, 3),
+
+    ...blockOfCells(18, 22, 1, 2),
+    ...blockOfCells(22, 22, 1, 2),
+    ...blockOfCells(26, 22, 1, 2),
+    ...blockOfCells(34, 22, 3, 1),
+
+    ...blockOfCells(2, 27, 4, 1),
+    ...blockOfCells(12, 27, 4, 1),
+    ...blockOfCells(21, 27, 4, 1),
+    ...blockOfCells(30, 27, 4, 1),
+    ...blockOfCells(40, 27, 4, 1),
+
+    ...blockOfCells(8, 24, 1, 2),
+    ...blockOfCells(37, 25, 1, 3)
+];
 
 
 
@@ -222,6 +255,10 @@ function makeBoard() {
     board.innerHTML = "";
     grid = [];
 
+    
+    board.style.gridTemplateColumns = "repeat(" + cols + ", 24px)";
+    board.style.gridTemplateRows = "repeat(" + rows + ", 24px)";
+
     for (var row = 0; row < rows; row++) {
         grid[row] = [];
 
@@ -233,7 +270,6 @@ function makeBoard() {
         }
     }
 }
-
 // wipe all cells, then paint food, poison, obstacles, snake
 function draw() {
     for (var row = 0; row < rows; row++) {
@@ -285,7 +321,7 @@ function draw() {
     // fog
     if (currentLevel === 6) {
         var head = snake[0];
-        var visionRadius = 3; // How many cells you can see in each direction
+        var visionRadius = 5; // How many cells you can see in each direction
 
         for (var row = 0; row < rows; row++) {
             for (var col = 0; col < cols; col++) {
@@ -522,8 +558,10 @@ function gameTick() {
 
 function loadLevel(n) {
     currentLevel = n;
-
+ 
     // reset
+    cols = 20;
+    rows = 20;
     currentObstacles = [];
     poisonConfig = false;
     warpEdges = false;
@@ -557,7 +595,10 @@ function loadLevel(n) {
 
     
     if (n >= 6) {
+        cols = 45;
+        rows = 30;
         currentObstacles = LEVEL_6;
+        warpEdges=true;
     }
 
 
@@ -569,7 +610,13 @@ function loadLevel(n) {
     }
 
     // reset snake and state
-    if (n >= 5) {
+    if (n >= 6) {
+        snake = [
+            { x: 40, y: 25 },
+            { x: 39, y: 25 },
+            { x: 38, y: 25 }
+        ];
+    } else if (n >= 5) {
         snake = [
             { x: 10, y: 10 },
             { x: 9, y: 10 },
@@ -582,6 +629,7 @@ function loadLevel(n) {
             { x: 3, y: 10 }
         ];
     }
+
 
     direction = { x: 1, y: 0 };
 

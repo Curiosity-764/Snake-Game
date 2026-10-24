@@ -45,7 +45,7 @@ function blockOfCells(x, y, w, h) { // x : start at x , y : ends at y, w : width
     for (var row = 0; row < h; row++) {    // outer loop : height since row < h then row < 2 meaning 2 loops in the outer layer
         for (var col = 0; col < w; col++) {    // inner loop : width since col < w then col < 3 meaning 3 loops in the inner layer
             cells.push({ x: x + col, y: y + row });   // pushes the cells in . final result : * * *         col = inner layer = 3
-                                                       //                                      * * *          row = 2 as outerlayer =2
+            //                                      * * *          row = 2 as outerlayer =2
         }  // one note to mention : x : x+col means that if col++ its gonna walk through the width and increase the x by 1 each time the loop comes through. same with y
         // x was never modified since i wrote it as x : x+col not x = x+col
     }
@@ -53,27 +53,27 @@ function blockOfCells(x, y, w, h) { // x : start at x , y : ends at y, w : width
 }
 
 // Level layouts
-var LEVEL_2 = [ 
-   ...blockOfCells(0, 0, 5, 1),  // "..."" = spread = join array
-  ...blockOfCells(15, 0, 5, 1),
-  ...blockOfCells(19, 0, 1, 5),
-  ...blockOfCells(0, 0, 1, 5),
-  ...blockOfCells(0, 19, 5, 1),
-  ...blockOfCells(0, 15, 1, 5),
-  ...blockOfCells(15, 19, 5, 1),
-  ...blockOfCells(5, 5, 10, 3),
-  ...blockOfCells(19, 15, 1, 5),
-  ...blockOfCells(5, 12, 10, 3)]
-  ;
-
-var LEVEL_3 = [
-  ...blockOfCells(3, 0, 3, 8),
-  ...blockOfCells(12, 6, 8, 3),
-  ...blockOfCells(0, 14, 8, 3),
-  ...blockOfCells(14, 14, 3, 6)]
+var LEVEL_2 = [
+    ...blockOfCells(0, 0, 5, 1),  // "..."" = spread = join array
+    ...blockOfCells(15, 0, 5, 1),
+    ...blockOfCells(19, 0, 1, 5),
+    ...blockOfCells(0, 0, 1, 5),
+    ...blockOfCells(0, 19, 5, 1),
+    ...blockOfCells(0, 15, 1, 5),
+    ...blockOfCells(15, 19, 5, 1),
+    ...blockOfCells(5, 5, 10, 3),
+    ...blockOfCells(19, 15, 1, 5),
+    ...blockOfCells(5, 12, 10, 3)]
     ;
 
-var LEVEL_4 = [ ...blockOfCells(8, 0, 4, 20)];
+var LEVEL_3 = [
+    ...blockOfCells(3, 0, 3, 8),
+    ...blockOfCells(12, 6, 8, 3),
+    ...blockOfCells(0, 14, 8, 3),
+    ...blockOfCells(14, 14, 3, 6)]
+    ;
+
+var LEVEL_4 = [...blockOfCells(8, 0, 4, 20)];
 
 var LEVEL_5 = [
     ...blockOfCells(2, 1, 2, 2),
@@ -81,43 +81,61 @@ var LEVEL_5 = [
     ...blockOfCells(2, 16, 2, 2),
     ...blockOfCells(16, 16, 2, 2),
 
-    ...blockOfCells(9, 2, 2, 6),  
-    ...blockOfCells(9, 12, 2, 6)  
+    ...blockOfCells(9, 2, 2, 6),
+    ...blockOfCells(9, 12, 2, 6)
 ];
+
+
+
+var LEVEL_6 = [
+    
+    ...blockOfCells(2, 2, 16, 1),
+    ...blockOfCells(2, 17, 16, 1),
+    ...blockOfCells(2, 3, 1, 14),
+    ...blockOfCells(17, 3, 1, 14),
+    
+   
+    ...blockOfCells(6, 6, 2, 2),
+    ...blockOfCells(12, 6, 2, 2),
+    ...blockOfCells(6, 12, 2, 2),
+    ...blockOfCells(12, 12, 2, 2)
+  ];
+
+
 
 // Each moving wall has its own direction, speed, and boundaries . 1 = right, -1 = left
 
 
 function setupMovingWalls() {
 
-  movingWalls = [];
+    movingWalls = [];
 
-  if (currentLevel !== 5) return;
+    if (currentLevel !== 5) return;
 
 
-  movingWalls.push({
-      cells: blockOfCells(0, 4, 8, 1),
-      axis: "y",
-      direction: 1,
-      minPos: 0,
-      maxPos: 12,
-      speed: 2,
+    movingWalls.push({
+        cells: blockOfCells(0, 4, 8, 1),
+        axis: "y",
+        direction: 1,
+        minPos: 0,
+        maxPos: 12,
+        speed: 2,
 
-  });
+    });
 
-  // 4. Build the second wall directly
-  movingWalls.push({
-      cells: blockOfCells(12, 14, 8, 1),
-      axis: "y",
-      direction: -1,
-      minPos: 0,
-      maxPos: 12,
-      speed: 3,
+    // 4. Build the second wall directly
+    movingWalls.push({
+        cells: blockOfCells(12, 14, 8, 1),
+        axis: "y",
+        direction: -1,
+        minPos: 0,
+        maxPos: 12,
+        speed: 3,
 
-  });
+    });
 }
 
-function updateMovingWalls() {  
+function updateMovingWalls() {
     for (var w = 0; w < movingWalls.length; w++) {
         var wall = movingWalls[w];
 
@@ -143,7 +161,7 @@ function updateMovingWalls() {
         var nextMin = currentMin + wall.direction;
         var nextMax = currentMax + wall.direction;
 
-        if (nextMin < wall.minPos || nextMax > wall.maxPos + 7) {   
+        if (nextMin < wall.minPos || nextMax > wall.maxPos + 7) {
             wall.direction *= -1; // *-1 for reverse
             continue;
         }
@@ -167,10 +185,10 @@ function updateMovingWalls() {
             }
         }
 
-    
+
         if (hitsSnakeOnNextMove) {
-          gameOver();
-          return ;
+            gameOver();
+            return;
         }
 
         // Move this wall independently
@@ -249,22 +267,41 @@ function draw() {
 
     for (var i = 0; i < snake.length; i++) {
         var part = snake[i];
-        
-        if (i === 0) {
-          var headClass = "snake-head";
-          
-          if (direction.x === 1)  headClass += " right";
-          if (direction.x === -1) headClass += " left";
-          if (direction.y === -1) headClass += " up";
-          if (direction.y === 1)  headClass += " down";
-          
-          grid[part.y][part.x].className = headClass;
-        } else {
-          grid[part.y][part.x].className = "snake";
-        }
-      }
-}
 
+        if (i === 0) {
+            var headClass = "snake-head";
+
+            if (direction.x === 1) headClass += " right";
+            if (direction.x === -1) headClass += " left";
+            if (direction.y === -1) headClass += " up";
+            if (direction.y === 1) headClass += " down";
+
+            grid[part.y][part.x].className = headClass;
+        } else {
+            grid[part.y][part.x].className = "snake";
+        }
+    }
+
+    // fog
+    if (currentLevel === 6) {
+        var head = snake[0];
+        var visionRadius = 3; // How many cells you can see in each direction
+
+        for (var row = 0; row < rows; row++) {
+            for (var col = 0; col < cols; col++) {
+                
+                // Calculate distance from the head to this cell
+                var distanceX = Math.abs(col - head.x);
+                var distanceY = Math.abs(row - head.y);
+                
+                // If the cell is outside the vision radius, cover it in fog
+                if (distanceX > visionRadius || distanceY > visionRadius) {
+                    grid[row][col].className = "fog"; 
+                }
+            }
+        }
+    }
+}
 function hitsSnake(position) { // check if the snake eat itself
     for (var i = 0; i < snake.length; i++) {
         var part = snake[i];
@@ -518,6 +555,14 @@ function loadLevel(n) {
         currentObstacles = LEVEL_5;
     }
 
+    
+    if (n >= 6) {
+        currentObstacles = LEVEL_6;
+    }
+
+
+
+
     if (tick !== null) {
         clearInterval(tick);
         tick = null;
@@ -563,25 +608,25 @@ function loadLevel(n) {
 var levelButtons = document.querySelectorAll(".level-btn");
 
 for (var i = 0; i < levelButtons.length; i++) {
-    levelButtons[i].addEventListener("click", function(event) {
+    levelButtons[i].addEventListener("click", function (event) {
         var levelNumber = parseInt(event.target.dataset.level, 10);
         loadLevel(levelNumber);
     });
 }
 
 // retry button
-document.getElementById("retry-btn").addEventListener("click", function() {
+document.getElementById("retry-btn").addEventListener("click", function () {
     loadLevel(currentLevel);
 });
 
 // return to menu
-document.getElementById("to-menu-btn").addEventListener("click", function() {
+document.getElementById("to-menu-btn").addEventListener("click", function () {
     showMenu();
 });
-document.getElementById("menu-btn").addEventListener("click", function() {
+document.getElementById("menu-btn").addEventListener("click", function () {
     showMenu();
 });
-document.addEventListener("keydown", function(event) {
+document.addEventListener("keydown", function (event) {
     if (game_end === true) return;
     if (gameScreen.classList.contains("hidden")) return;
 
